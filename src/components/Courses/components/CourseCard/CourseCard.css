@@ -1,0 +1,73 @@
+/* Course Card styles */
+.course-card {
+  height: 180px;
+  margin-top: 30px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  padding: 25px;
+  border-left: 5px solid rgb(88, 82, 82);
+}
+
+.card-text {
+  float: left;
+  width: 60%;
+  height: 174px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: justify;
+}
+
+.card-info {
+  float: right;
+  width: 35%;
+}
+
+.bold-text {
+  font-weight: 700;
+}
+
+.course-description {
+  font-size: 14px;
+}
+
+.course-title {
+  margin-top: 1px;
+  margin-bottom: 9px;
+}
+
+.course-line {
+  margin-top: 0px;
+  margin-bottom: 2px;
+  font-size: 14px;
+}
+
+.card-authors {
+  height: 21px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; 
+}
+
+.show-course-button, .pencil-course-button, .delete-course-button {
+  float: left;
+  margin-top: 25px;
+}
+
+.delete-course-button button, .pencil-course-button button { 
+  font-size: 25px;
+  margin-left: 10px;
+}
+
+@media (max-width: 1100px) {
+  .course-card {
+    height: 230px;
+  }
+  .card-text {
+    height: 210px;
+    width: 50%;
+  }
+  .card-info {
+    width: 45%;
+  }
+}

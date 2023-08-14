@@ -1,0 +1,15 @@
+.empty-course-title {
+    margin-top: 200px;
+    text-align: center;
+}
+
+.empty-course-subtitle {
+    text-align: center;
+}
+
+.empty-course-button {
+    margin-top: 15px;
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

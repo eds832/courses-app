@@ -1,0 +1,7 @@
+.search-bar {
+  float: left;
+  .button {
+    float: left;
+    margin-left: 10px;
+  }
+}

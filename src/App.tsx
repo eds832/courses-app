@@ -1,26 +1,55 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+
 import './App.css';
 
+import Header from './components/Header/Header';
+import Courses from './components/Courses/Courses';
+import { mockedAuthorsList, mockedCoursesList } from './constants';
+import CourseInfo from './components/CourseInfo/CourseInfo';
+import coursesListConvertor from './helpers/coursesListConvertor';
+
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [courseId, setCourse] = useState(null);
+
+	const handleCourseClicked = (id?: string) => {
+		if (courseId) {
+			setCourse(null);
+		} else {
+			setCourse(id);
+		}
+	};
+
+	if (!courseId) {
+		return (
+			<div>
+				<Header />
+				<Courses
+					courseList={mockedCoursesList}
+					authorList={mockedAuthorsList}
+					onShowCourseClicked={handleCourseClicked}
+				/>
+			</div>
+		);
+	} else {
+		const course = coursesListConvertor(
+			mockedCoursesList,
+			mockedAuthorsList
+		).find((course) => course.id === courseId);
+		return (
+			<div>
+				<Header />
+				<CourseInfo
+					onBackClicked={handleCourseClicked}
+					id={course.id}
+					title={course.title}
+					description={course.description}
+					authors={course.authors.join(', ')}
+					duration={course.duration}
+					created={course.creationDate}
+				/>
+			</div>
+		);
+	}
 }
 
 export default App;
