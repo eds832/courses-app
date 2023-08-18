@@ -1,0 +1,11 @@
+/* Logo styles */
+.logo {
+    float: left;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+  
+.logo img {
+    height: 50px;
+    width: 125px;
+}

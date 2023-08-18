@@ -1,0 +1,19 @@
+/* Button styles */
+.button {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 20px;
+    background-color: #4e88ac;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    border-radius: 3px;
+    cursor: pointer;
+    border-width: 0;
+}
+
+/* Button hover styles */
+.button:hover {
+    background-color: #1f4b7a;
+}

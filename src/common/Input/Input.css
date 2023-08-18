@@ -1,0 +1,7 @@
+.input-wrapper {
+  float: left;
+}
+
+.input-wrapper input {
+  line-height: 33px;
+}
