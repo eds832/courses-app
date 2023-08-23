@@ -57,19 +57,24 @@ const CreateCourse: React.FC<CreateCourseProps> = (props) => {
 	const handleSubmitCourse = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		cleanErrors();
+		let isError = false;
 		if (!title || title.trim().length < 2) {
 			setTitleError(TITLE_ERROR_MESSAGE);
+			isError = true;
 		}
 		if (!description || description.trim().length < 2) {
 			setDescriptionError(DESCRIPTION_ERROR_MESSAGE);
+			isError = true;
 		}
 		if (!durationStr || +durationStr < 1) {
 			setDurationError(DURATION_ERROR_MESSAGE);
+			isError = true;
 		}
 		if (courseAuthorArr.length < 1) {
 			setAuthorError(AUTHORS_ERROR_MESSAGE);
+			isError = true;
 		}
-		if (titleError || descriptionError || durationError || authorError) {
+		if (isError) {
 			return;
 		}
 		const authors = courseAuthorArr.map((author) => author.id);
