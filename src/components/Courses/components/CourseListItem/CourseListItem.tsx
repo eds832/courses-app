@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Course } from './../../../../components/Courses/Course';
 import CourseCard from '../CourseCard/CourseCard';
+import { CourseListItemProps } from './CourseListItemProps';
 
 const CourseListItem = ({
 	id,
@@ -10,12 +10,10 @@ const CourseListItem = ({
 	creationDate,
 	duration,
 	authors,
-	onShowCourseClicked,
-}: Course) => {
+}: CourseListItemProps) => {
 	return (
 		<li>
 			<CourseCard
-				onShowCourseClicked={onShowCourseClicked}
 				id={id}
 				title={title}
 				description={description}

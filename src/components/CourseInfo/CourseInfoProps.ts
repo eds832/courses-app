@@ -1,9 +1,8 @@
+import { Author } from '../Courses/Author';
+import { Course } from '../Courses/Course';
+
 export interface CourseInfoProps {
-	onBackClicked: () => void;
-	id: string;
-	title: string;
-	description: string;
-	authors: string;
-	duration: string;
-	created: string;
+	onLogout: () => void;
+	courseList: Course[];
+	authorList: Author[];
 }

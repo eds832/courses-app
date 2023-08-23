@@ -1,55 +1,103 @@
 import React, { useState } from 'react';
 
 import './App.css';
-
-import Header from './components/Header/Header';
+import { Route, Routes, Navigate } from 'react-router-dom';
+import Login from './components/Login/Login';
 import Courses from './components/Courses/Courses';
-import { mockedAuthorsList, mockedCoursesList } from './constants';
+import Registration from './components/Registration/Registration';
 import CourseInfo from './components/CourseInfo/CourseInfo';
-import coursesListConvertor from './helpers/coursesListConvertor';
+import CreateCourse from './components/CreateCourse/CreateCourse';
+import { mockedAuthorsList, mockedCoursesList } from './constants';
+import { Course } from './components/Courses/Course';
+import { Author } from './components/Courses/Author';
 
 function App() {
-	const [courseId, setCourse] = useState(null);
+	const [token, setToken] = useState(localStorage.getItem('token') || '');
+	const [authorList, setAuthorList] = useState(mockedAuthorsList);
+	const [courseList, setCourseList] = useState(mockedCoursesList);
 
-	const handleCourseClicked = (id?: string) => {
-		if (courseId) {
-			setCourse(null);
-		} else {
-			setCourse(id);
-		}
+	const createCourse = (newCourse: Course) => {
+		setCourseList([...courseList, newCourse]);
 	};
 
-	if (!courseId) {
-		return (
-			<div>
-				<Header />
-				<Courses
-					courseList={mockedCoursesList}
-					authorList={mockedAuthorsList}
-					onShowCourseClicked={handleCourseClicked}
-				/>
-			</div>
-		);
-	} else {
-		const course = coursesListConvertor(
-			mockedCoursesList,
-			mockedAuthorsList
-		).find((course) => course.id === courseId);
-		return (
-			<div>
-				<Header />
-				<CourseInfo
-					onBackClicked={handleCourseClicked}
-					id={course.id}
-					title={course.title}
-					description={course.description}
-					authors={course.authors.join(', ')}
-					duration={course.duration}
-					created={course.creationDate}
-				/>
-			</div>
-		);
-	}
+	const createAuthor = (newAuthor: Author) => {
+		setAuthorList([...authorList, newAuthor]);
+	};
+
+	const handleLogin = (newToken: string, newName: string) => {
+		setToken(newToken);
+		localStorage.setItem('token', newToken);
+		localStorage.setItem('name', newName);
+	};
+
+	const handleLogout = () => {
+		setToken('');
+		localStorage.removeItem('token');
+		localStorage.removeItem('name');
+		localStorage.removeItem('role');
+	};
+
+	const handleDeleteAuthor = (id: string) => {
+		const authorListCopy = [...authorList];
+		let result = false;
+		authorListCopy.forEach((item, index) => {
+			if (item.id === id) {
+				const authorIds = courseList.map((cours) => cours.authors).flat();
+				if (authorIds.indexOf(id) < 0) {
+					authorListCopy.splice(index, 1);
+					setAuthorList(authorListCopy);
+					result = true;
+				}
+			}
+		});
+		return result;
+	};
+
+	return (
+		<Routes>
+			<Route path='/register' element={<Registration />} />
+			<Route path='/login' element={<Login onLogin={handleLogin} />} />
+			{token ? (
+				<>
+					<Route
+						path='/courses'
+						element={
+							<Courses
+								courseList={courseList}
+								authorList={authorList}
+								onLogout={handleLogout}
+							/>
+						}
+					/>
+					<Route
+						path='/courses/add'
+						element={
+							<CreateCourse
+								onDeleteAuthorClicked={handleDeleteAuthor}
+								authorList={authorList}
+								createCourse={createCourse}
+								createAuthor={createAuthor}
+								onLogout={handleLogout}
+							/>
+						}
+					/>
+					<Route
+						path='/courses/:courseId'
+						element={
+							<CourseInfo
+								courseList={courseList}
+								authorList={authorList}
+								onLogout={handleLogout}
+							/>
+						}
+					/>
+					<Route path='*' element={<Navigate to='/courses' />} />
+				</>
+			) : (
+				<Route path='*' element={<Navigate to='/login' />} />
+			)}
+		</Routes>
+	);
 }
 
 export default App;

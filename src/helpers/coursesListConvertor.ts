@@ -4,15 +4,10 @@ import formatCrationDate from './formatCreationDate';
 import getCourseDuration from './getCourseDuration';
 import stringToDateConvertor from './stringToDateConvertor';
 
-const coursesListConvertor = (
-	courseList: Course[],
-	authorList: Author[],
-	onShowCourseClicked?: (id?: string) => void
-) => {
+const coursesListConvertor = (courseList: Course[], authorList: Author[]) => {
 	return courseList.map((course) => {
 		return {
 			...course,
-			onShowCourseClicked: onShowCourseClicked,
 			duration: getCourseDuration(+course.duration),
 			creationDate: formatCrationDate(
 				stringToDateConvertor(course.creationDate)

@@ -1,4 +1,4 @@
-export interface ConvertedCourse {
+export interface CourseListItemProps {
 	id: string;
 	title: string;
 	description: string;

@@ -7,17 +7,8 @@ const CoursesList = ({ convertedCourseList }: ConvertedCourseList) => {
 	return (
 		<ul>
 			{convertedCourseList.map(
-				({
-					id,
-					title,
-					description,
-					creationDate,
-					duration,
-					authors,
-					onShowCourseClicked,
-				}) => (
+				({ id, title, description, creationDate, duration, authors }) => (
 					<CourseListItem
-						onShowCourseClicked={onShowCourseClicked}
 						key={id}
 						id={id}
 						title={title}

@@ -1,4 +1,4 @@
-export interface CourseCardProps {
+export interface CourseInfoBodyProps {
 	id: string;
 	title: string;
 	description: string;

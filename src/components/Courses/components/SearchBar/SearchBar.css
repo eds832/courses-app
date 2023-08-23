@@ -4,4 +4,7 @@
     float: left;
     margin-left: 10px;
   }
+  .input-wrapper input {
+    line-height: 33px;
+  }
 }

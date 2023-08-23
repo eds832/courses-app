@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './CourseCard.css';
 import Button from './../../../../common/Button/Button';
@@ -7,9 +8,6 @@ import { CourseCardProps } from './CourseCardProps';
 
 const showAlert = () => alert('Clicked');
 const CourseCard: React.FC<CourseCardProps> = (props) => {
-	const handleShowCourseClick = () => {
-		props.onShowCourseClicked(props.id);
-	};
 	return (
 		<article className='course-card'>
 			<h3 className='course-title'>{props.title}</h3>
@@ -39,10 +37,9 @@ const CourseCard: React.FC<CourseCardProps> = (props) => {
 				</div>
 				<div className='course-card-buttons'>
 					<div className='show-course-button'>
-						<Button
-							buttonText={SHOW_COURSE_BUTTON_TEXT}
-							onClick={handleShowCourseClick}
-						/>
+						<Link to={'/courses/' + props.id}>
+							<Button buttonText={SHOW_COURSE_BUTTON_TEXT} />
+						</Link>
 					</div>
 					<div className='delete-course-button'>
 						<Button buttonText='&#x1F5D1;' onClick={showAlert}></Button>
