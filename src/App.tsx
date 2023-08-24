@@ -55,7 +55,7 @@ function App() {
 
 	return (
 		<Routes>
-			<Route path='/register' element={<Registration />} />
+			<Route path='/registration' element={<Registration />} />
 			<Route path='/login' element={<Login onLogin={handleLogin} />} />
 			{token ? (
 				<>

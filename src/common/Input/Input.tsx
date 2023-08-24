@@ -13,6 +13,7 @@ const Input: React.FC<InputProps> = ({
 	error,
 	size,
 	pattern,
+	placeholderText,
 }) => {
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		onChange(event.target.value);
@@ -35,6 +36,7 @@ const Input: React.FC<InputProps> = ({
 					className={error ? 'input-error' : ''}
 					size={size ? size : 20}
 					pattern={pattern}
+					placeholder={placeholderText ? placeholderText : 'Input text'}
 				/>
 				<p className='error-message'>{error}</p>
 			</label>

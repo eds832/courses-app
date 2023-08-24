@@ -7,4 +7,5 @@ export interface TextAreaProps {
 	error?: string;
 	rows?: number;
 	cols?: number;
+	placeholderText?: string;
 }

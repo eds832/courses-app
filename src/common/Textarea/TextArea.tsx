@@ -11,6 +11,7 @@ const TextArea: React.FC<TextAreaProps> = ({
 	error,
 	rows,
 	cols,
+	placeholderText,
 }) => {
 	const handleTextAreaChange = (
 		event: React.ChangeEvent<HTMLTextAreaElement>
@@ -36,6 +37,7 @@ const TextArea: React.FC<TextAreaProps> = ({
 					className={error ? 'input-error' : ''}
 					rows={rows}
 					cols={cols}
+					placeholder={placeholderText ? placeholderText : 'Input text'}
 				/>
 				<p className='error-message'>{error}</p>
 			</label>

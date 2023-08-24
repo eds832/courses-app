@@ -8,4 +8,5 @@ export interface InputProps {
 	error?: string;
 	size?: number;
 	pattern?: string;
+	placeholderText?: string;
 }

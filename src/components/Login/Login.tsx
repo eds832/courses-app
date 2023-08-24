@@ -93,7 +93,7 @@ const Login = ({ onLogin }: LoginProps) => {
 					<div className='button-login'>
 						<Button type='submit' buttonText={LOGIN_BUTTON_TEXT} />
 						<p className='account-line'>{LOGIN_FORM_ACCOUTN_LINE_TEXT}</p>
-						<Link to='/register'>
+						<Link to='/registration'>
 							<p className='registration-link'>Registration</p>
 						</Link>
 					</div>
