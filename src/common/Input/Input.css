@@ -3,5 +3,16 @@
 }
 
 .input-wrapper input {
-  line-height: 33px;
+  line-height: 23px; 
+}
+
+.input-error {
+  border: 1px solid red !important;
+}
+
+.error-message {
+  color: red;
+  margin-top: 5px;
+  margin-bottom: 0;
+  font-weight: 400;
 }

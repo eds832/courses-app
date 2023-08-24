@@ -1,10 +1,11 @@
 import React from 'react';
 
 import './Button.css';
+import { ButtonProps } from './ButtonProps';
 
-const Button = ({ buttonText, onClick }) => (
-	<button className='button' onClick={onClick}>
-		{buttonText}
+const Button: React.FC<ButtonProps> = (props) => (
+	<button className='button' onClick={props.onClick} type={props.type}>
+		{props.buttonText}
 	</button>
 );
 

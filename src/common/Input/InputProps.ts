@@ -4,4 +4,9 @@ export interface InputProps {
 	onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 	inputId?: string;
 	labelText?: string;
+	type?: string;
+	error?: string;
+	size?: number;
+	pattern?: string;
+	placeholderText?: string;
 }

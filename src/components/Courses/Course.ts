@@ -3,7 +3,6 @@ export interface Course {
 	title: string;
 	description: string;
 	creationDate: string;
-	duration: string | number;
+	duration: number;
 	authors: string[];
-	onShowCourseClicked?: (courseId: string) => void;
 }

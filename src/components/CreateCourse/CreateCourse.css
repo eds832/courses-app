@@ -1,0 +1,140 @@
+.create-course-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    flex-direction: column;
+    margin-bottom: 100px;
+}
+
+.create-course-forms {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    background-color: #fff;
+    padding-left: 55px;
+    padding-top: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 900px;
+    height: 640px;
+}
+
+.create-course-title {
+    margin-top: 100px;
+    width: 940px;             
+}
+
+.create-course-forms input, textarea {
+    padding: 10px;
+    font-size: 12px;
+    margin-top: 5px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    font-family: -apple-system, BlinkMacSystemFont, 'Open Sans', sans-serif;
+}
+  
+.create-course-forms p {
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+.create-course-forms label {
+    display: flex;
+    font-size: 10px;
+    flex-direction: column;
+    margin-bottom: 20px;
+    text-align: left;
+    font-weight: 700;
+}
+
+.title-input {
+    top: 240px;
+    position: absolute;
+}
+
+.description-textarea {
+    top: 325px;
+    position: absolute;
+}
+
+.duration-subtitle {
+    top: 455px;
+    position: absolute;
+}
+
+.duration-input {
+    top: 495px;
+    position: absolute;
+}
+
+.duration-view {
+    display: inline-block;
+    top: 27px;
+    position: absolute;
+    margin-left: 15px;     
+}
+
+.duration-view p {
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.create-course-buttons {
+    top: 865px;
+    position: absolute;  
+    margin-left: 540px;  
+    .button {
+        width: 170px;
+    }
+}
+
+.button-create-course {        
+    display: inline-block;
+    width: 170px;
+    margin-left: 20px;
+}
+
+.button-cancel-course {
+    display: inline-block;
+    width: 170px;
+}
+
+.authors-subtitle {
+    top: 565px;
+    position: absolute;
+}
+
+.author-input-button-container {
+    top: 605px;
+    position: absolute; 
+}
+
+.authors-button {
+    display: inline-block;
+    top: 17px;
+    position: absolute;
+    .button {
+        width: 170px;
+        height: 43px;
+        margin-left: 12px;
+    }
+}
+
+.course-authors {
+    top: 565px;
+    position: absolute;
+    margin-left: 700px;
+}
+
+.authors-list {
+    top: 675px;
+    position: absolute;
+}
+
+.plus, .delete {
+    cursor: pointer;
+}
+
+
+

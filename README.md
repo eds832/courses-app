@@ -1,4 +1,4 @@
-**React mentoring task**
+**React mentoring task #1**
 
 Create folders and files for each component. Follow the architecture below:
 src
@@ -206,3 +206,126 @@ npm run eslint
 npm run start
 
 Prettier extension in VSCode was configured as in eslintrc.json.
+
+**Task 2**
+
+Project structure requirements
+Create new folders and jsx(tsx) files for each component:
+src
+|-- components
+|   |-- Login
+|   |    |__ Login.jsx/.tsx
+|   |
+|   |-- Registration
+|   |   |__ Registration.jsx/.tsx
+|   |
+|   |-- CreateCourse
+|   |   |__ CreateCourse.jsx/.tsx
+|   |   |
+|   |   |__ components
+|   |      |-- AuthorItem
+|   |         |__ AuthorItem.jsx/.tsx
+|   |
+|   |__ ...
+|__ ...
+
+For sending requests to API you should use fetch or axios.
+APIs from SWAGGER for Module 2:
+/login [POST]
+/register [POST]
+
+**Criteria (35 points max)**
+
+Common
+
+[3 points] - Use react-router-dom hooks: useParams, useNavigate etc.
+
+[5 points] - Add data type checking for props to all components using PropTypes or TypeScript.
+If you already use TypeScript, please ignore this requirement.
+
+Registration Component
+
+[2 points] - Create component Registration with.
+
+[1 point] - Registration form should appear after clicking on the Registration link on the Login form.
+
+[1 point] - Registration form should appear by route /registration.
+[1 points] - Registration should have an auth functionality.
+User enters email, name and password, presses the Registration button then application sends request to API.
+See /register endpoint in API Swagger.
+After successful registration application navigates you to Login page.
+[1 point] - Validation required for all fields.
+
+Login Component
+
+[2 points] - Create component Login.
+[1 point] - Login should be shown after first open application by route /login.
+[1 point] - Login form should appear after clicking on the link Login on the Registration form.
+[1 points] - Login should have an auth functionality.
+When you entered an email and password application sends request to API.
+See /login endpoint in API Swagger.
+After successful login application navigates to Courses page.
+[2 points] - Save token from API after login.
+Add functionality that check if token in localStorage. If token is in the localStorage app automatically navigates to /courses route.
+[1 point] - Validation required for all fields.
+
+CourseInfo Component
+
+[2 points] - Show information about the course. Use route /courses/:courseId (courseId - id of the current course).
+
+[2 points] - To find out which course info you should render on CourseInfo page,
+you should use id of the course from path-parameters.
+
+[2 points] - Back to course button should navigate to the route /courses.
+
+Courses Component
+
+[2 points] - Component Courses should be opened by route /courses.
+
+[2 points] - Show Courses component by default if there is token in the localStorage.
+
+[2 points] - Navigate to the route courses/add by clicking Add New Course button.
+
+CreateCourse Component
+
+[1 point] - Possibility to add a title.
+[1 point] - Possibility to add a description.
+[1 point] - Possibility to add a duration.
+[2 points] - Show duration time in a format «hh:mm».
+Example: 122 min should be showed as 02:02 hours.
+[1 point] - Add logic for creating a new author.
+[1 point] - Add logic for adding an author to Course authors.
+[1 point] - Add logic for deleting an author from Course authors.
+[3 points] - Add logic for saving course (new course should be presented in the courses list).
+[1 points] - Add validation for required fields.
+[2 point] - Open CreateCourse component by route /courses/add.
+
+EmptyCourseList Component
+
+[4 point] - Navigate to /courses/add FOR ADMIN USER OR show spacial message for REGULAR USER by clicking Add New Course button.
+
+Header Component
+
+[2 point] - Add logout functionality.
+When user clicks Logout button in the Header component, token should be removed from localStorage and user is navigated to Login page.
+
+[2 point] - Get user's name from the Login response and display it in the header.
+
+[2 point] - Remove user's name for the Login and Registration pages.
+
+[2 point] - Remove Logout button for the Login and Registration pages.
+
+**Scripts used in the task**
+
+Cloned the backend repo:
+https://git.****.com/<Some_Person>/courses-app-backend
+
+backend:
+npm install
+npm run start
+
+Created a branch for task2 from main of courses-app
+
+npm install react-router-dom --save --legacy-peer-deps
+
+npm run start

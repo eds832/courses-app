@@ -1,0 +1,91 @@
+.registration-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12.4px;
+    margin-bottom: 40px;
+}
+  
+.registration-form {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    padding: 50px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 340px;
+    height: 360px;
+}
+
+.registration-title {
+    text-align: center;
+    margin-top: 105px;              
+}
+
+.registration-form input {
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 5px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+  
+.error-registration-message {
+    color: red;
+    font-weight: 400;
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+.registration-form label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    text-align: left;
+    font-weight: 700;
+}
+
+.login-link {
+    color: black;
+    margin-top: 2px;
+    font-weight: 700;
+}
+
+.registration-form a:link {
+    text-decoration: none;
+}
+
+.registration-form a:hover {
+    text-decoration: underline;
+}
+
+.registration-name-input {
+    top: 210px;
+    position: absolute;
+}
+
+.registration-email-input {
+    top: 310px;
+    position: absolute;
+}
+
+.registration-password-input {
+    top: 410px;
+    position: absolute;
+}
+
+.registration-button {
+    top: 510px;
+    position: absolute;
+}
+
+.registration-button button {
+    margin-top: 10px;
+    width: 217px;
+}
+
+.account-line {
+    margin-top: 20px;
+    margin-bottom: 2px;
+}
