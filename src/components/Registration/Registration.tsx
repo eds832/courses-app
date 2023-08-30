@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import './Registration.css';
-import { Link, useNavigate } from 'react-router-dom';
 import Button from './../../common/Button/Button';
 import Input from 'src/common/Input/Input';
 import Header from '../Header/Header';
@@ -16,6 +16,7 @@ import {
 	LOGIN_BUTTON_TEXT,
 	REGISTRATION_FORM_TITLE,
 } from './../../constants';
+import { registerUser } from './../../services';
 
 const Registration = () => {
 	const navigate = useNavigate();
@@ -45,22 +46,15 @@ const Registration = () => {
 		if (!email || !password || !name) {
 			return;
 		}
-		try {
-			const response = await fetch('http://localhost:4000/register', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({ name, email, password }),
-			});
-			const data = await response.json();
-			if (response.ok) {
-				navigate('/login');
-			} else {
-				setError(data.errors);
-			}
-		} catch (error) {
-			setError('An error occurred');
+		const [registrationSuccesful, message] = await registerUser(
+			name,
+			email,
+			password
+		);
+		if (registrationSuccesful) {
+			navigate('/login');
+		} else {
+			setError(message);
 		}
 	};
 

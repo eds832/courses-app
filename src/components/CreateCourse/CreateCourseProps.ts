@@ -1,10 +1,10 @@
-import { Author } from '../Courses/Author';
-import { Course } from '../Courses/Course';
+import { AuthorType } from './../../store/authors/types';
+import { CourseType } from './../../store/courses/types';
 
 export interface CreateCourseProps {
-	createCourse: (course: Course) => void;
-	createAuthor: (course: Author) => void;
+	createCourse: (course: CourseType) => void;
+	createAuthor: (course: AuthorType) => Promise<boolean>;
 	onLogout: () => void;
-	authorList: Author[];
+	authorList: AuthorType[];
 	onDeleteAuthorClicked: (id: string) => boolean;
 }

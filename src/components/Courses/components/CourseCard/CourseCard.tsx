@@ -1,13 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import './CourseCard.css';
 import Button from './../../../../common/Button/Button';
 import { SHOW_COURSE_BUTTON_TEXT } from './../../../../constants';
 import { CourseCardProps } from './CourseCardProps';
+import { deleteCourseAction } from './../../../../store/courses/actions';
+import { deleteCourseById } from './../../../../services';
 
 const showAlert = () => alert('Clicked');
 const CourseCard: React.FC<CourseCardProps> = (props) => {
+	const dispatch = useDispatch();
+
+	const handleDeleteCourse = async () => {
+		const success = await deleteCourseById(props.id);
+		if (success) {
+			dispatch(deleteCourseAction(props.id));
+		}
+	};
+
 	return (
 		<article className='course-card'>
 			<h3 className='course-title'>{props.title}</h3>
@@ -42,7 +54,10 @@ const CourseCard: React.FC<CourseCardProps> = (props) => {
 						</Link>
 					</div>
 					<div className='delete-course-button'>
-						<Button buttonText='&#x1F5D1;' onClick={showAlert}></Button>
+						<Button
+							buttonText='&#x1F5D1;'
+							onClick={handleDeleteCourse}
+						></Button>
 					</div>
 					<div className='pencil-course-button'>
 						<Button buttonText='&#x1F589;' onClick={showAlert}></Button>

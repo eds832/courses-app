@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import './CourseInfo.css';
 import { CourseInfoProps } from './CourseInfoProps';
 import CourseInfoBody from './components/CourseInfoBody/CourseInfoBody';
-import coursesListConvertor from 'src/helpers/coursesListConvertor';
+import coursesListConvertor from './../../helpers/coursesListConvertor';
 import Header from '../Header/Header';
 
 const CourseInfo: React.FC<CourseInfoProps> = (props) => {
