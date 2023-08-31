@@ -10,12 +10,13 @@ import { HeaderProps } from './HeaderProps';
 import { getUser } from './../../store/selectors';
 
 const Header: React.FC<HeaderProps> = (props) => {
+	const userName = useSelector(getUser)?.name;
 	return (
 		<header className='header'>
 			<Logo />
 			{localStorage.getItem('token') && (
 				<div className='user-login'>
-					<UserName name={useSelector(getUser)?.name} />
+					<UserName name={userName} />
 					<Button onClick={props.onLogout} buttonText={LOGOUT_BUTTON_TEXT} />
 				</div>
 			)}
