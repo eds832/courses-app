@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import './CreateCourse.css';
-import { Link, useNavigate } from 'react-router-dom';
 import Button from './../../common/Button/Button';
-import Input from 'src/common/Input/Input';
+import Input from './../../common/Input/Input';
 import { CreateCourseProps } from './CreateCourseProps';
 import Header from '../Header/Header';
 import getCourseDuration from './../../helpers/getCourseDuration';
@@ -79,8 +79,8 @@ const CreateCourse: React.FC<CreateCourseProps> = (props) => {
 		}
 		const authors = courseAuthorArr.map((author) => author.id);
 		const duration = +durationStr;
-		const id = self.crypto.randomUUID(); //mocked here - we will get UUID in response
-		const creationDate = '20/08/2023'; //mocked here - we will get date in response
+		const id = '';
+		const creationDate = '';
 		const newCourse = {
 			id,
 			title,
@@ -93,21 +93,25 @@ const CreateCourse: React.FC<CreateCourseProps> = (props) => {
 		navigate('/courses');
 	};
 
-	const handleSubmitAuthor = (event: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmitAuthor = async (
+		event: React.FormEvent<HTMLFormElement>
+	) => {
 		event.preventDefault();
 		cleanErrors();
 		if (!author || author.trim().length < 2) {
 			setAuthorError(AUTHOR_ERROR_MESSAGE);
 			return;
 		}
-		const id = self.crypto.randomUUID(); //mocked here - we will get UUID in response
+		const id = '';
 		const name = author;
 		const newAuthor = {
 			id,
 			name,
 		};
-		props.createAuthor(newAuthor);
-		setAllAuthorArrCopy([...allAuthorArrCopy, newAuthor]);
+		const success = await props.createAuthor(newAuthor);
+		if (success) {
+			setAllAuthorArrCopy([...allAuthorArrCopy, newAuthor]);
+		}
 		setAuthor('');
 	};
 
@@ -232,16 +236,18 @@ const CreateCourse: React.FC<CreateCourseProps> = (props) => {
 							<div className='authors-list'>
 								<h3>{AUTONRS_LIST}</h3>
 								<table>
-									{allAuthorArrCopy.map(({ id, name }) => (
-										<AuthorItem
-											onAddAuthorClicked={handleAddAuthorToCourse}
-											onDeleteAuthorClicked={handeDeleteAuthor}
-											key={id}
-											id={id}
-											name={name}
-											withAdd={true}
-										/>
-									))}
+									<tbody>
+										{allAuthorArrCopy.map(({ id, name }) => (
+											<AuthorItem
+												onAddAuthorClicked={handleAddAuthorToCourse}
+												onDeleteAuthorClicked={handeDeleteAuthor}
+												key={id}
+												id={id}
+												name={name}
+												withAdd={true}
+											/>
+										))}
+									</tbody>
 								</table>
 							</div>
 						</form>
@@ -249,15 +255,17 @@ const CreateCourse: React.FC<CreateCourseProps> = (props) => {
 							<h3>{COURSE_AUTHORS}</h3>
 							{courseAuthorArr.length > 0 ? (
 								<table>
-									{courseAuthorArr.map(({ id, name }) => (
-										<AuthorItem
-											onDeleteAuthorClicked={handleDeleteCurseAuthor}
-											withAdd={false}
-											key={id}
-											id={id}
-											name={name}
-										/>
-									))}
+									<tbody>
+										{courseAuthorArr.map(({ id, name }) => (
+											<AuthorItem
+												onDeleteAuthorClicked={handleDeleteCurseAuthor}
+												withAdd={false}
+												key={id}
+												id={id}
+												name={name}
+											/>
+										))}
+									</tbody>
 								</table>
 							) : (
 								<p>{AUTHOR_LIST_EMPTY}</p>

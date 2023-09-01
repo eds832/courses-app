@@ -1,8 +1,8 @@
-import { Author } from '../Courses/Author';
-import { Course } from '../Courses/Course';
+import { AuthorType } from './../../store/authors/types';
+import { CourseType } from './../../store/courses/types';
 
 export interface CourseInfoProps {
 	onLogout: () => void;
-	courseList: Course[];
-	authorList: Author[];
+	courseList: CourseType[];
+	authorList: AuthorType[];
 }

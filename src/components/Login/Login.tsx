@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import './Login.css';
 import { LoginProps } from './LoginProps';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import Button from './../../common/Button/Button';
 import Input from './../../common/Input/Input';
 import Header from '../Header/Header';
@@ -23,6 +23,8 @@ const Login = ({ onLogin }: LoginProps) => {
 	const [passwordError, setPasswordError] = useState('');
 	const [error, setError] = useState('');
 
+	const navigate = useNavigate();
+
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		setEmailError('');
@@ -37,26 +39,11 @@ const Login = ({ onLogin }: LoginProps) => {
 		if (!email || !password) {
 			return;
 		}
-		try {
-			const response = await fetch('http://localhost:4000/login', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({ email, password }),
-			});
-			const data = await response.json();
-			if (response.ok) {
-				let token = data.result;
-				if (token.startsWith('Bearer ')) {
-					token = token.substring(7, token.length);
-					onLogin(token, data.user.name);
-				}
-			} else {
-				setError(data.result);
-			}
-		} catch (error) {
-			setError('An error occurred');
+		const [loginSuccesful, message] = await onLogin(email, password);
+		if (loginSuccesful) {
+			navigate('/courses');
+		} else {
+			setError(message);
 		}
 	};
 

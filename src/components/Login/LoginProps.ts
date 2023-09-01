@@ -1,3 +1,3 @@
 export interface LoginProps {
-	onLogin: (token: string, name: string) => void;
+	onLogin: (token: string, name: string) => Promise<[boolean, string?]>;
 }

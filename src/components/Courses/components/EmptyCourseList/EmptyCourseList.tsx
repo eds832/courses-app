@@ -1,45 +1,32 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import './EmptyCourseList.css';
 import Button from './../../../../common/Button/Button';
-import { useNavigate } from 'react-router-dom';
 import {
 	ADD_NEW_COURSE_BUTTON_TEXT,
 	DONT_HAVE_PERMISSONS,
 	EMPTY_COURSE_LIST_SUBTITLE,
 	EMPTY_COURSE_LIST_TITLE,
 } from './../../../../constants';
+import { getUser } from './../../../../store/selectors';
 
 const EmptyCourseList: React.FC = () => {
+	const role = useSelector(getUser)?.role;
+	const isAdmin = role === 'admin';
+	const isNone = role === '';
+	const showButton = isNone || isAdmin;
+
 	const navigate = useNavigate();
+
 	const handleAddNewCourse = async () => {
-		try {
-			const response = await fetch('http://localhost:4000/users/me', {
-				method: 'GET',
-				headers: {
-					Authorization: 'Bearer ' + localStorage.getItem('token'),
-				},
-			});
-			const data = await response.json();
-			if (response.ok) {
-				const role = data.result.role;
-				if (role === 'admin') {
-					localStorage.setItem('role', 'admin');
-					navigate('/courses/add');
-				} else {
-					localStorage.setItem('role', 'user');
-					navigate('/courses');
-				}
-			} else {
-				console.log('An error occurred');
-			}
-		} catch (error) {
-			console.log(`An error occurred: ${error}`);
+		if (role === 'admin') {
+			navigate('/courses/add');
+		} else {
+			navigate('/courses');
 		}
 	};
-	const isAdmin = localStorage.getItem('role') === 'admin';
-	const isNone = localStorage.getItem('role') == null;
-	const showButton = isNone || isAdmin;
 	return (
 		<article className='empty-course-list'>
 			<div className='empty-course-title'>

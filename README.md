@@ -329,3 +329,84 @@ Created a branch for task2 from main of courses-app
 npm install react-router-dom --save --legacy-peer-deps
 
 npm run start
+
+
+**Task 3**
+
+Criteria (35 points max)
+
+APIs
+[2 points] - All functionality with back-end should be in services.js.
+(Create api service for each endpoint that you use and call methods or functions from service into your components)
+[2 points] - Get courses from back-end. See API /courses/all in the SWAGGER. Save courses list to the store.
+[2 points] - Get authors from back-end. See API /authors/all in the SWAGGER. Save authors list to the store.
+
+Store
+[3 points] - Store should have User reducer.
+User reducer manage data with user's info and should have next model:
+ const userInitialState = {
+     isAuth: boolean, // default value - false. After success login - true
+     name: string, // default value - empty string. After success login - name of user
+     email: string, // default value - empty string. After success login - email of user
+     token: string, // default value - empty string or token value from localStorage. 
+     // After success login - value from API /login response. See Swagger.
+ };
+
+User reducer has logic:
+After success login isAuth property has value true, save token, email and name.
+After logout isAuth property has value false, token, email and name have value as empty string.
+[3 point] - Store should have Courses reducer.
+Courses reducer manage data with courses list and should have next model:
+   const coursesInitialState = [] // default value - empty array. After success getting courses from API - array of courses.
+
+Courses reducer has logic:
+Save new course.
+Delete course.
+Update course.
+Get courses. Save courses to the store after getting them from API. See Swagger /courses/all.
+[3 point] - Store should have Authors reducer.
+Authors reducer manage data with authors list and should have the next model:
+  const authorsInitialState = [] // default value - empty array. After success getting authors from API - array of authors.
+
+Authors reducer has logic:
+Save a new author.
+Get authors. Save authors to store after getting them from API. See Swagger /authors/all .
+Login Component
+[2 point] - Save user's info to the store after success login.
+Header Component
+[1 point] - Get user's name from the store.
+
+[2 point] - Dispatch REMOVE_USER action by LOGOUT button click.
+
+Courses Component
+[3 point] - Get courses from the store and render them into Courses component.
+
+[3 points] - If token is present in the localStorage the user should be immediately redirected to the Courses page when opening the application.
+
+CreateCourse Component
+[2 points] - After saving course in CreateCourse component course should be added to store.
+
+[2 point] - Get authors from the store.
+
+[1 point] - Save new authors to the store.
+
+CourseCard Component
+[2 point] - Add a new button "Delete course" into CourseCard.
+
+[1 point] - Add a new button "Update course" into CourseCard (CourseCard in COMPONENTS).
+
+[1 point] - After clicking on the Delete course button a selected course should be deleted from the store.
+
+**Scripts used in the task**
+
+Installation of redux and react-redux:
+
+npm i @reduxjs/toolkit react-redux --save --legacy-peer-deps
+
+axios:
+npm install axios --saveDev --legacy-peer-deps
+
+Chrome devtool link: 
+https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
+
+npm install --save-dev redux-devtools-extension --legacy-peer-deps
