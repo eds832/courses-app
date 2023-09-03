@@ -1,6 +1,7 @@
 export const enum UserActionTypes {
 	SAVE_USER = 'SAVE_USER',
 	DELETE_USER = 'DELETE_USER',
+	LOGIN_FAIL = 'LOGIN_FAIL',
 }
 
 export type UserType = {
@@ -11,6 +12,7 @@ export type UserType = {
 	password: string;
 	role: string;
 	token: string;
+	error: string | null;
 };
 
 export interface SaveUser {
@@ -23,4 +25,9 @@ export interface DeleteUser {
 	payload: null;
 }
 
-export type UserAction = SaveUser | DeleteUser;
+export interface LoginFail {
+	type: UserActionTypes.LOGIN_FAIL;
+	payload: string;
+}
+
+export type UserAction = SaveUser | DeleteUser | LoginFail;

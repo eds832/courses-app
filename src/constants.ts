@@ -74,3 +74,5 @@ export const AUTHOR_LIST_EMPTY = 'Author list is empty';
 
 export const DONT_HAVE_PERMISSONS = `You don't have permissions to create a course. Please log in as
 ADMIN`;
+
+export const UPDATE_COURSE_BUTTON_TEXT = 'UPDATE COURSE';

@@ -8,6 +8,7 @@ export const userInitialState = {
 	password: '',
 	role: '',
 	token: '',
+	error: null,
 } as UserType;
 
 export default function userReducer(
@@ -27,6 +28,19 @@ export default function userReducer(
 				password: '',
 				role: '',
 				token: '',
+				error: null,
+			};
+
+		case UserActionTypes.LOGIN_FAIL:
+			return {
+				isAuth: false,
+				id: null,
+				name: '',
+				email: '',
+				password: '',
+				role: '',
+				token: '',
+				error: action.payload,
 			};
 
 		default:

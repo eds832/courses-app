@@ -7,7 +7,9 @@ const AuthorItem: React.FC<AuthorItemProps> = (props) => {
 		props.onAddAuthorClicked(props.id);
 	};
 	const handleDeleteAuthor = () => {
-		props.onDeleteAuthorClicked(props.id);
+		if (typeof props.onDeleteAuthorClicked === 'function') {
+			props.onDeleteAuthorClicked(props.id);
+		}
 	};
 	return (
 		<tr>

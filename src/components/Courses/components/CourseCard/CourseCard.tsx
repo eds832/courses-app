@@ -1,24 +1,28 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import './CourseCard.css';
 import Button from './../../../../common/Button/Button';
 import { SHOW_COURSE_BUTTON_TEXT } from './../../../../constants';
 import { CourseCardProps } from './CourseCardProps';
-import { deleteCourseAction } from './../../../../store/courses/actions';
-import { deleteCourseById } from './../../../../services';
+import { getUser } from './../../../../store/selectors';
+import { deleteCourseThunk } from './../../../../store/courses/thunk';
+import { useAppDispatch } from './../../../../hooks';
 
-const showAlert = () => alert('Clicked');
 const CourseCard: React.FC<CourseCardProps> = (props) => {
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
 
 	const handleDeleteCourse = async () => {
-		const success = await deleteCourseById(props.id);
-		if (success) {
-			dispatch(deleteCourseAction(props.id));
-		}
+		dispatch(deleteCourseThunk(props.id));
 	};
+
+	const handleUpdateCourse = () => {
+		navigate(`/courses/update/${props.id}`);
+	};
+
+	const isAdmin = useSelector(getUser)?.role === 'admin';
 
 	return (
 		<article className='course-card'>
@@ -53,15 +57,23 @@ const CourseCard: React.FC<CourseCardProps> = (props) => {
 							<Button buttonText={SHOW_COURSE_BUTTON_TEXT} />
 						</Link>
 					</div>
-					<div className='delete-course-button'>
-						<Button
-							buttonText='&#x1F5D1;'
-							onClick={handleDeleteCourse}
-						></Button>
-					</div>
-					<div className='pencil-course-button'>
-						<Button buttonText='&#x1F589;' onClick={showAlert}></Button>
-					</div>
+					{isAdmin && (
+						<>
+							<div className='delete-course-button'>
+								<Button
+									buttonText='&#x1F5D1;'
+									onClick={handleDeleteCourse}
+								></Button>
+							</div>
+
+							<div className='pencil-course-button'>
+								<Button
+									buttonText='&#x1F589;'
+									onClick={handleUpdateCourse}
+								></Button>
+							</div>
+						</>
+					)}
 				</div>
 			</div>
 		</article>
