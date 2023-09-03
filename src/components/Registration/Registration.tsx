@@ -20,7 +20,7 @@ import {
 import { getUser } from './../../store/selectors';
 import { registerUserThunk } from './../../store/user/thunk';
 import { useAppDispatch } from './../../hooks';
-import { deleteUserAction } from 'src/store/user/actions';
+import { deleteUserAction } from './../../store/user/actions';
 
 const Registration = () => {
 	const navigate = useNavigate();

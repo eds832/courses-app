@@ -139,8 +139,7 @@ const CreateCourse: React.FC<CreateCourseProps> = (props) => {
 			setAuthorError(AUTHOR_ERROR_MESSAGE);
 			return;
 		}
-		const name = author;
-		dispatch(addAuthorThunk(name));
+		dispatch(addAuthorThunk(author));
 		setAuthor('');
 	};
 
