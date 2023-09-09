@@ -410,3 +410,75 @@ Chrome devtool link:
 https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
 
 npm install --save-dev redux-devtools-extension --legacy-peer-deps
+
+** Task4 **
+
+Create a new folder and jsx / tsx file for new components:
+src / components / PrivateRoute / PrivateRoute.jsx/.tsx
+Rename CreateCourse folder and file:
+src / components / CreateCourse / CreateCourse.jsx/.tsx => CourseForm / CourseForm.jsx/.tsx
+Create new js/ts files for thunk functions:
+  src
+   |-- store
+   |   |
+   |   |-- user
+   |   |   |-- thunk.js/.ts //new file
+   |   |   |
+   |   |   |__ //old files
+   |   |
+   |   |-- courses
+   |   |   |-- thunk.js/.ts //new file
+   |   |   |
+   |   |   |__ // old files
+   |   |
+   |   |__ authors
+   |       |-- thunk.js/.ts //new file
+   |       |
+   |       |__ //old files
+   |   
+   |__ ...
+
+Admin credentials. These credentials provide role ADMIN.
+email: admin@email.com
+password: admin123
+
+APIs from SWAGGER for Module 4:
+/courses/add [POST] (use ADMIN credentials)
+/courses/{id} [PUT] (use ADMIN credentials)
+/authors/add [POST] (use ADMIN credentials)
+/courses/{id} [DELETE] (use ADMIN credentials)
+/logout [DELETE]
+/users/me [GET]
+
+For fetching requests you should add Authorization header with user's token
+Authorization: token
+
+Criteria (30 points max)
+APIs
+[8 points] - Use Thunk for asynchronous actions. Rewrite old GET requests /courses/all and /authors/all.
+[2 points] - Create request to get current user if localStorage contains token. (See /users/me [GET] in the SWAGGER).
+PrivateRoute Component
+[2 points] - Create new component PrivateRoute.
+Use PrivateRoute for routes:
+/courses/add;
+/courses/update/:courseId.
+Header
+[2 points] - Modify Logout functionality. Call endpoint for loggout on a back-end. (See /logout in the SWAGGER)
+CourseCard Component
+[1 point] - Show buttons Delete course and Update course when role - ADMIN.
+[2 points] - Sent delete request to the back-end. (See /courses/{id} in the SWAGGER).
+[1 point] - Delete the course from the store after success API response.
+(Course card with ADMIN role in COMPONENTS.pdf).
+CourseForm Component (create mode)
+[1 point] - Show /courses/add route only for user with ADMIN role.
+[2 points] - Send new course to the back-end. (See /courses/add in the SWAGGER).
+[2 points] - Send new author to the back-end. (See /authors/add in the SWAGGER).
+[1 point] - Save new course to the store after success response.
+(Add new course in COMPONENTS).
+CourseForm Component (update mode)
+[1 point] - Update Course form should be opened by route /courses/update/:courseId.
+[1 point] - Show route only for user with ADMIN role.
+[1 point] - Show information about course in fields with the same name.
+[2 points] - Send updated course to the back-end. (See [PUT] /courses/{id} in the SWAGGER).
+[1 point] - Save updated course to the store after success response.
+(Update course in COMPONENTS).

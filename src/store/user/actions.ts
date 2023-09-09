@@ -19,3 +19,13 @@ export const saveUserAction = (userData: UserType): SaveUserAction => ({
 	type: UserActionTypes.SAVE_USER,
 	payload: userData,
 });
+
+export type LoginFailAction = {
+	type: UserActionTypes.LOGIN_FAIL;
+	payload: string;
+};
+
+export const loginFailAction = (message: string): LoginFailAction => ({
+	type: UserActionTypes.LOGIN_FAIL,
+	payload: message,
+});

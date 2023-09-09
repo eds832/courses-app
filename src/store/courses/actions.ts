@@ -34,14 +34,14 @@ export const saveCoursesAction = (
 	payload: courseData,
 });
 
-export type UpdateCoursesAction = {
+export type UpdateCourseAction = {
 	type: CoursesActionTypes.UPDATE_COURSE;
 	payload: CourseType[];
 };
 
-export const updateCoursesAction = (
+export const updateCourseAction = (
 	courseData: CourseType[]
-): UpdateCoursesAction => ({
+): UpdateCourseAction => ({
 	type: CoursesActionTypes.UPDATE_COURSE,
 	payload: courseData,
 });

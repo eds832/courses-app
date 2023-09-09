@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import './Registration.css';
 import Button from './../../common/Button/Button';
-import Input from 'src/common/Input/Input';
+import Input from './../../common/Input/Input';
 import Header from '../Header/Header';
 import {
 	REGISTRATION_FORM_ACCOUTN_LINE_TEXT,
@@ -16,7 +17,10 @@ import {
 	LOGIN_BUTTON_TEXT,
 	REGISTRATION_FORM_TITLE,
 } from './../../constants';
-import { registerUser } from './../../services';
+import { getUser } from './../../store/selectors';
+import { registerUserThunk } from './../../store/user/thunk';
+import { useAppDispatch } from './../../hooks';
+import { deleteUserAction } from './../../store/user/actions';
 
 const Registration = () => {
 	const navigate = useNavigate();
@@ -27,6 +31,20 @@ const Registration = () => {
 	const [emailError, setEmailError] = useState('');
 	const [passwordError, setPasswordError] = useState('');
 	const [error, setError] = useState('');
+
+	const dispatch = useAppDispatch();
+	const err = useSelector(getUser)?.error;
+	const [tried, setTried] = useState(0);
+
+	useEffect(() => {
+		if (tried > 0) {
+			setError(err);
+			if (err === '') {
+				navigate('/login');
+				dispatch(deleteUserAction());
+			}
+		}
+	}, [err, tried]);
 
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -46,16 +64,9 @@ const Registration = () => {
 		if (!email || !password || !name) {
 			return;
 		}
-		const [registrationSuccesful, message] = await registerUser(
-			name,
-			email,
-			password
+		dispatch(registerUserThunk(name, email, password)).then(() =>
+			setTried(tried + 1)
 		);
-		if (registrationSuccesful) {
-			navigate('/login');
-		} else {
-			setError(message);
-		}
 	};
 
 	return (

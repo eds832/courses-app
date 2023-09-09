@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-import './CreateCourse.css';
+import './CourseForm.css';
 import Button from './../../common/Button/Button';
 import Input from './../../common/Input/Input';
-import { CreateCourseProps } from './CreateCourseProps';
+import { CreateCourseProps } from './CourseFormProps';
 import Header from '../Header/Header';
 import getCourseDuration from './../../helpers/getCourseDuration';
 import TextArea from './../../common/Textarea/TextArea';
@@ -28,23 +29,56 @@ import {
 	AUTONRS_LIST,
 	COURSE_AUTHORS,
 	AUTHOR_LIST_EMPTY,
+	UPDATE_COURSE_BUTTON_TEXT,
 } from './../../constants';
+import { useAppDispatch } from './../../hooks';
+import { addAuthorThunk } from './../../store/authors/thunk';
+import { getAuthors, getCourses } from './../../store/selectors';
+import { addCourseThunk, updateCourseThunk } from './../../store/courses/thunk';
+import { AuthorType } from './../../store/authors/types';
+import { CourseType } from './../../store/courses/types';
 
 const CreateCourse: React.FC<CreateCourseProps> = (props) => {
 	const navigate = useNavigate();
-	const [title, setTitle] = useState('');
-	const [description, setDescription] = useState('');
-	const [durationStr, setDuration] = useState('');
+	const dispatch = useAppDispatch();
+	const allAuthors = useSelector(getAuthors);
+	const allCourses = useSelector(getCourses);
+	const { courseId } = useParams();
+	let course: CourseType = {
+		id: '',
+		title: '',
+		description: '',
+		duration: 0,
+		creationDate: '',
+		authors: [],
+	};
+	let authors: AuthorType[] = [];
+	if (courseId) {
+		course = allCourses.find((c) => c.id === courseId);
+		authors = course?.authors?.map((authorId) =>
+			allAuthors.find((author) => author.id === authorId)
+		);
+	}
+	const [title, setTitle] = useState(course.title);
+	const [description, setDescription] = useState(course.description);
+	const [durationStr, setDuration] = useState(
+		course.duration ? course.duration.toString() : ''
+	);
 	const [author, setAuthor] = useState('');
-	const [courseAuthorArr, setAuthors] = useState([]);
-	const [allAuthorArrCopy, setAllAuthorArrCopy] = useState([
-		...props.authorList,
-	]);
+	const [courseAuthorArr, setAuthors] = useState(authors);
+	const [allAuthorArrCopy, setAllAuthorArrCopy] = useState([...allAuthors]);
 	const [titleError, setTitleError] = useState('');
 	const [descriptionError, setDescriptionError] = useState('');
 	const [durationError, setDurationError] = useState('');
 	const [authorError, setAuthorError] = useState('');
 	const [error, setError] = useState('');
+
+	useEffect(() => {
+		const allAuthorList = allAuthors.filter(
+			(aut) => !courseAuthorArr.find((aut2) => aut2 == aut)
+		);
+		setAllAuthorArrCopy(allAuthorList);
+	}, [allAuthors, courseAuthorArr]);
 
 	const cleanErrors = () => {
 		setTitleError('');
@@ -79,8 +113,8 @@ const CreateCourse: React.FC<CreateCourseProps> = (props) => {
 		}
 		const authors = courseAuthorArr.map((author) => author.id);
 		const duration = +durationStr;
-		const id = '';
-		const creationDate = '';
+		const id = course.id;
+		const creationDate = course.creationDate;
 		const newCourse = {
 			id,
 			title,
@@ -89,8 +123,11 @@ const CreateCourse: React.FC<CreateCourseProps> = (props) => {
 			creationDate,
 			authors,
 		};
-		props.createCourse(newCourse);
-		navigate('/courses');
+		if (courseId) {
+			dispatch(updateCourseThunk(newCourse)).then(() => navigate('/courses'));
+		} else {
+			dispatch(addCourseThunk(newCourse)).then(() => navigate('/courses'));
+		}
 	};
 
 	const handleSubmitAuthor = async (
@@ -102,16 +139,7 @@ const CreateCourse: React.FC<CreateCourseProps> = (props) => {
 			setAuthorError(AUTHOR_ERROR_MESSAGE);
 			return;
 		}
-		const id = '';
-		const name = author;
-		const newAuthor = {
-			id,
-			name,
-		};
-		const success = await props.createAuthor(newAuthor);
-		if (success) {
-			setAllAuthorArrCopy([...allAuthorArrCopy, newAuthor]);
-		}
+		dispatch(addAuthorThunk(author));
 		setAuthor('');
 	};
 
@@ -121,7 +149,6 @@ const CreateCourse: React.FC<CreateCourseProps> = (props) => {
 		if (author) {
 			const courseAuthorList = courseAuthorArr.filter((aut) => aut !== author);
 			setAuthors(courseAuthorList);
-			setAllAuthorArrCopy([...allAuthorArrCopy, author]);
 		}
 	};
 
@@ -129,25 +156,7 @@ const CreateCourse: React.FC<CreateCourseProps> = (props) => {
 		cleanErrors();
 		const author = allAuthorArrCopy.find((author) => author.id === id);
 		if (author) {
-			const allAuthorList = props.authorList.filter(
-				(aut) => aut !== author && !courseAuthorArr.find((aut2) => aut2 == aut)
-			);
-			setAllAuthorArrCopy(allAuthorList);
 			setAuthors([...courseAuthorArr, author]);
-		}
-	};
-
-	const handeDeleteAuthor = (id: string) => {
-		cleanErrors();
-		if (props.onDeleteAuthorClicked(id)) {
-			const author = allAuthorArrCopy.find((author) => author.id === id);
-			if (author) {
-				const allAuthorList = props.authorList.filter(
-					(aut) =>
-						aut !== author && !courseAuthorArr.find((aut2) => aut2 == aut)
-				);
-				setAllAuthorArrCopy(allAuthorList);
-			}
 		}
 	};
 
@@ -208,7 +217,14 @@ const CreateCourse: React.FC<CreateCourseProps> = (props) => {
 								</Link>
 							</div>
 							<div className='button-create-course'>
-								<Button type='submit' buttonText={CREATE_COURSE_BUTTON_TEXT} />
+								<Button
+									type='submit'
+									buttonText={
+										courseId
+											? UPDATE_COURSE_BUTTON_TEXT
+											: CREATE_COURSE_BUTTON_TEXT
+									}
+								/>
 							</div>
 						</div>
 					</form>
@@ -240,7 +256,6 @@ const CreateCourse: React.FC<CreateCourseProps> = (props) => {
 										{allAuthorArrCopy.map(({ id, name }) => (
 											<AuthorItem
 												onAddAuthorClicked={handleAddAuthorToCourse}
-												onDeleteAuthorClicked={handeDeleteAuthor}
 												key={id}
 												id={id}
 												name={name}

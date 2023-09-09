@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link, Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import './Login.css';
-import { LoginProps } from './LoginProps';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
 import Button from './../../common/Button/Button';
 import Input from './../../common/Input/Input';
 import Header from '../Header/Header';
@@ -15,18 +15,31 @@ import {
 	LOGIN_BUTTON_TEXT,
 	LOGIN_FORM_TITLE,
 } from './../../constants';
+import { useAppDispatch } from './../../hooks';
+import { loginUserThunk } from './../../store/user/thunk';
+import { getUser } from './../../store/selectors';
+import { deleteUserAction } from './../../store/user/actions';
 
-const Login = ({ onLogin }: LoginProps) => {
+const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [emailError, setEmailError] = useState('');
 	const [passwordError, setPasswordError] = useState('');
 	const [error, setError] = useState('');
 
-	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
+	const err = useSelector(getUser)?.error;
+	const [tried, setTried] = useState(0);
+
+	useEffect(() => {
+		if (tried && err) {
+			setError(err);
+		}
+	}, [tried, err]);
 
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+		dispatch(deleteUserAction());
 		setEmailError('');
 		setPasswordError('');
 		setError('');
@@ -39,12 +52,7 @@ const Login = ({ onLogin }: LoginProps) => {
 		if (!email || !password) {
 			return;
 		}
-		const [loginSuccesful, message] = await onLogin(email, password);
-		if (loginSuccesful) {
-			navigate('/courses');
-		} else {
-			setError(message);
-		}
+		dispatch(loginUserThunk(email, password)).then(() => setTried(tried + 1));
 	};
 
 	return (
