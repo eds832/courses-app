@@ -56,7 +56,7 @@ export const loginUserWithApi = async (email: string, password: string) => {
 export const logoutUserWithApi = async () => {
 	const token = localStorage.getItem('token');
 	if (token) {
-		return await axios.delete('http://localhost:4000/users/me', {
+		return await axios.delete('http://localhost:4000/logout', {
 			headers: { Authorization: `${token}` },
 		});
 	}
