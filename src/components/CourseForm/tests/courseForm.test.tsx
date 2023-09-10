@@ -123,14 +123,14 @@ describe('CourseForm', () => {
 				</BrowserRouter>
 			</Provider>
 		);
-		const author1Tr = getByText('Test Author 1');
-		const author1Td = author1Tr.parentElement as HTMLElement;
-		const addAuthor1ToCourse = within(author1Td).getByText('+');
+		const author1Td = getByText('Test Author 1');
+		const author1Tr = author1Td.parentElement as HTMLElement;
+		const addAuthor1ToCourse = within(author1Tr).getByText('+');
 		fireEvent.click(addAuthor1ToCourse);
 
-		const author1TrInCourse = getByText('Test Author 1');
-		const author1TdInCourse = author1TrInCourse.parentElement as HTMLElement;
-		const deleteAuthor1FromCourse = within(author1TdInCourse).getByText('🗑');
+		const author1TdInCourse = getByText('Test Author 1');
+		const author1TrInCourse = author1TdInCourse.parentElement as HTMLElement;
+		const deleteAuthor1FromCourse = within(author1TrInCourse).getByText('🗑');
 		fireEvent.click(deleteAuthor1FromCourse);
 		const emptyCoursesParagraph = queryByText(AUTHOR_LIST_EMPTY);
 
