@@ -68,6 +68,7 @@ describe('CourseForm', () => {
 	});
 
 	const mockedOnLogout = jest.fn();
+
 	it('CourseForm should show authors lists (all and course authors)', () => {
 		const { getAllByText } = render(
 			<Provider store={mockedStore}>
