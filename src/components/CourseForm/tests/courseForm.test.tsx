@@ -108,8 +108,8 @@ describe('CourseForm', () => {
 				</BrowserRouter>
 			</Provider>
 		);
-		const plusInputs = getAllByText('+');
-		fireEvent.click(plusInputs[0]);
+		const pluses = getAllByText('+');
+		fireEvent.click(pluses[0]);
 		const emptyCoursesParagraph = queryByText(AUTHOR_LIST_EMPTY);
 
 		expect(emptyCoursesParagraph).not.toBeInTheDocument();
