@@ -482,3 +482,44 @@ CourseForm Component (update mode)
 [2 points] - Send updated course to the back-end. (See [PUT] /courses/{id} in the SWAGGER).
 [1 point] - Save updated course to the store after success response.
 (Update course in COMPONENTS).
+
+** Task 5 **
+
+Add a command npm run test:nowatch to the prepublish script in the package.json file.
+Result in the package.json:
+
+"prepublish": "npm run eslint:fix && npm run test:nowatch"
+
+Criteria (20 points max)
+Add test for Header:
+[2 points] - Header should have logo and user's name.
+Add tests for CourseCard:
+[1 point] - CourseCard should display title.
+[1 point] - CourseCard should display description.
+[1 point] - CourseCard should display duration in the correct format.
+[2 point] - CourseCard should display authors list.
+[1 point] - CourseCard should display created date in the correct format.
+Add tests for Courses:
+[2 points] - Courses should display amount of CourseCard equal length of courses array.
+[3 points] - CourseForm should be shown after a click on the "Add new course" button.
+Add tests for coursesReducer:
+[1 point] - reducer should return the initial state.
+[1 point] - reducer should handle SAVE_COURSE and returns new state.
+Script in the package.json:
+[5 points] - pre-commit hook works correctly:
+There is no ability to commit changes if some of unit tests are failed.
+INFO
+To run all task run npm run test:nowatch
+
+EXTRA TASK:
+Add tests for CourseForm (update or create mode):
+NOTE
+If you decided to do the extra task, YOU ARE A STAR ⭐
+Don't forget to create appropriate folder and test file.
+
+By the way, it's the last task in this course. Thank you for coming to the end 😎
+
+CourseForm should show authors lists (all and course authors).
+CourseForm 'Create author' button click should call dispatch.
+CourseForm 'Add author' button click should add an author to the course authors list.
+CourseForm 'Delete author' button click should delete an author from the course list.
